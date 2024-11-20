@@ -35,8 +35,114 @@ class ContactLeadsController extends Controller
 
         $data["pageTitle"] = 'Manage Contact Leads';
         $data["activeMenu"] = 'contact leads';
+       
         return view('admin.contactLeads.manage')->with($data);
     }
+
+
+    public function searchExport(Request $request)
+    {
+        $fromDate = $request->input('frmVal1');
+        $toDate = $request->input('frmVal2');
+       
+        $exportFlag = $request->input('export');
+      
+        $formattedFromDate = (new \DateTime($fromDate))->format('Y-m-d');
+       
+        $formattedToDate =(new \DateTime($toDate))->format('Y-m-d');
+
+
+        if($exportFlag == 1){
+          
+            $data["contact"] = $this->getExport($formattedFromDate, $formattedToDate);
+          
+        }
+        else{
+            $data["contact"] = $this->getSearchData($formattedFromDate, $formattedToDate);
+        }
+
+        return view('admin.contactLeads.manage', $data);
+    }
+
+    protected function getExport($fromDate, $toDate){
+
+        $contacts =[];
+
+        if (!empty($fromDate) && empty($toDate)) {
+            $contacts = Contact::where('created_at', '>', $fromDate)
+                ->get();
+        } elseif (empty($fromDate) && !empty($toDate)) {
+            $contacts = Contact::where('created_at', '<', $toDate)
+                ->get();
+        } elseif (!empty($fromDate) && !empty($toDate)) {
+            $contacts = Contact::whereBetween('created_at', [$fromDate, $toDate])
+                ->get();
+        }
+
+   $xmlData = "Name \t Email \t Phone \t Subject \t Message \t Date \t \n";   
+
+    foreach ($contacts as $contact) {
+       
+        $xmlData .=  $contact->name . "\t";
+        $xmlData .=  $contact->email . "\t";
+        $xmlData  .= $contact->phone . "\t";
+        $xmlData  .= $contact->subject . "\t";
+        $xmlData  .= $contact->message . "\t";
+        $xmlData .=  $contact->created_at->format('d-m-y') . "\t\n";
+     
+    }
+ 
+    $filename = 'contacts-leads' . '.xls';
+
+    // Set headers to force download
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+    header('Content-Length: ' . strlen($xmlData));
+
+    // Clear output buffer to avoid any unwanted output
+    ob_clean();
+    flush();
+
+    // Output the XML data for download
+    echo $xmlData;
+
+    // End script execution
+    die();
+
+        
+    }
+  
+
+    protected function getSearchData($fromDate, $toDate){
+
+        // echo '<pre>';
+        // print_r($toDate);
+        // die();
+        if (!empty($fromDate) && empty($toDate)) {
+            $contact = Contact::where('created_at', '>', $fromDate)
+                ->get();
+             
+        } elseif (empty($fromDate) && !empty($toDate)) {
+        //     echo '<pre>';
+        // print_r($toDate);
+        die();
+            $contact = Contact::where('created_at', '<', $toDate)
+                ->get();
+                echo '<pre>';
+        // print_r($toDate);
+        // die();
+        } elseif (!empty($fromDate) && !empty($toDate)) {
+            $contact = Contact::whereBetween('created_at', [$fromDate, $toDate])
+                ->get();
+        }
+        // echo '<pre>';
+        // print_r($contact);
+        // die();
+
+         return $contact;
+    }
+
+    
 
     /**
      * Show the form for creating a new resource.

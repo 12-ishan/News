@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Validator,Redirect,Response;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-
+use Spatie\Activitylog\Models\Activity;
 
 class DashboardController extends Controller
 {
@@ -19,13 +19,25 @@ class DashboardController extends Controller
     }
 
     
-    public function home(){
+    // public function home(){
 
-        $data["pageTitle"] = 'Dashboard';
-        $data["activeMenu"] = 'dashboard';
-        return view('admin.dashboard')->with($data);
+    //     $activities = Activity::all();
+    //     $data["pageTitle"] = 'Dashboard';
+    //     $data["activeMenu"] = 'dashboard';
+    //     return view('admin.dashboard')->with(['data' => $data, 'activities', $activities]);
 
-    }
+    // }
+
+    public function home()
+{
+    $activities = Activity::orderBy('created_at', 'desc')->get();// Fetch all activities
+    $data = [
+        "pageTitle" => 'Dashboard',
+        "activeMenu" => 'dashboard'
+    ];
+
+    return view('admin.dashboard', compact('data', 'activities'));
+}
 
     public function permissionDenied(){
 

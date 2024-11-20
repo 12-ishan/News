@@ -9,13 +9,13 @@ use Validator,Redirect,Response;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Activitylog\Models\Activity;
 
 class AdminController extends Controller
 {
     public function login(){
 
         if (Auth::user()) {   // Check is user logged in
-
             return redirect()->intended('admin/dashboard');
             
         }
@@ -37,7 +37,9 @@ class AdminController extends Controller
             if (Auth::attempt($credentials)) {
 
                 $user = Auth::user();
-                if ($user->roleId === 1 || $user->roleId === 2) {
+              
+              //  if ($user->roleId === 1 || $user->roleId === 2) {
+              if($user){
                     return redirect()->intended('admin/dashboard');
                     
                 }else{
