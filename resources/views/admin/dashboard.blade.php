@@ -145,3 +145,4 @@
                 </div> 
                 <!-- order list area end -->
 @endsection
+{{-- //@include('admin/partials.offset', 'activities', $activities) --}}

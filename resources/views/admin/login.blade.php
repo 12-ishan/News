@@ -5,7 +5,7 @@
     <div class="login-area login-s2">
         <div class="container">
             <div class="login-box ptb--100">
-                <form id="loginForm" method="post" action="/login"> 
+                <form id="loginForm" method="post" action="{{ route('doLogin') }}"> 
                 {{ csrf_field() }}
                     <div class="login-form-head">
                         <h4>Sign In</h4>

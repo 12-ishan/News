@@ -8,7 +8,7 @@
 
             
 
-            <form id="registrationForm" method="POST" action="/register">
+            <form id="registrationForm" method="POST" action="{{ route('adminRegisterPost') }}">
             {{ csrf_field() }}
                     <div class="login-form-head">
 
