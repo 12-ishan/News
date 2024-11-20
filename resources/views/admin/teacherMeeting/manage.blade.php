@@ -71,7 +71,7 @@
                                     NA
                                     @endif</td>
                                <td>
-                               <a class="btn btn-success btn-sm" href="{{ url('/admin/teacher-meeting/activate', $value->id) }}">Update</a>
+                               <a class="btn btn-success btn-sm" href="{{ url('/teacher-meeting/activate', $value->id) }}">Update</a>
                                     </td>
                                
                                 </tr>

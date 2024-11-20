@@ -68,7 +68,7 @@
                             </div> -->
                         </div>
                         <div class="form-footer text-center mt-5">
-                            <p class="text-muted">Don't have an account? <a href="{{ url('/admin/login') }}">Sign in</a></p>
+                            <p class="text-muted">Don't have an account? <a href="{{ url('/login') }}">Sign in</a></p>
                         </div>
                     </div>
                 </form>

@@ -194,7 +194,7 @@
                                 <!-- <a class="dropdown-item" href="#">Message</a>
                                 <a class="dropdown-item" href="#">Settings</a> -->
                                 <a class="dropdown-item" href="{{route('user.edit', Auth::user()->id)}}">Edit Profile</a>
-                                <a class="dropdown-item" href="{{ url('/admin/logout') }}">Log Out</a>
+                                <a class="dropdown-item" href="{{ url('/logout') }}">Log Out</a>
                             </div>
                         </div>
                     </div>

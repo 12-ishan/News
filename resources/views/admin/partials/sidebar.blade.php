@@ -11,7 +11,7 @@
             <nav>
                 <ul class="metismenu" id="menu">
                     <li @if(isset($activeMenu)) @if($activeMenu=='dashboard' ) class="active" @endif @endif>
-                        <a href="{{ url('/admin/dashboard') }}"><i class="ti-dashboard"></i><span>dashboard</span></a>
+                        <a href="{{ url('/dashboard') }}"><i class="ti-dashboard"></i><span>dashboard</span></a>
                         <!-- <ul class="collapse">
                                     <li><a href="index.html">SEO dashboard</a></li>
                                     <li class="active"><a href="index2.html">Ecommerce dashboard</a></li>
@@ -27,10 +27,10 @@
                             </span></a>
 
                         <ul class="collapse">
-                            <li><a href="{{ url('/admin/news') }}">Manage News</a></li>
-                            {{-- <li><a href="{{ url('/admin/news/create') }}">Add News</a></li> --}}
+                            <li><a href="{{ url('/news') }}">Manage News</a></li>
+                            {{-- <li><a href="{{ url('/news/create') }}">Add News</a></li> --}}
                             @if((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || Auth::user()->hasPermission('create-news'))
-                            <li><a href="{{ url('/admin/news/create') }}">Add News</a></li>
+                            <li><a href="{{ url('/news/create') }}">Add News</a></li>
                         @endif
 
                         </ul>
@@ -43,8 +43,8 @@
                             </span></a>
 
                         <ul class="collapse">
-                            <li><a href="{{ url('/admin/landing-page') }}">Manage Landing Pages</a></li>
-                            <li><a href="{{ url('/admin/landing-page/create') }}">Add Landing page</a></li>
+                            <li><a href="{{ url('/landing-page') }}">Manage Landing Pages</a></li>
+                            <li><a href="{{ url('/landing-page/create') }}">Add Landing page</a></li>
 
 
                         </ul>
@@ -63,8 +63,8 @@
 
 
                         <ul class="collapse">
-                            <li><a href="{{ url('/admin/news-category') }}">Manage Category</a></li>
-                            <li><a href="{{ url('/admin/news-category/create') }}">Add Category</a></li>
+                            <li><a href="{{ url('/news-category') }}">Manage Category</a></li>
+                            <li><a href="{{ url('/news-category/create') }}">Add Category</a></li>
 
 
                         </ul>
@@ -78,8 +78,8 @@
 
 
                         <ul class="collapse">
-                            <li><a href="{{ url('/admin/news-sub-category') }}">Manage Category</a></li>
-                            <li><a href="{{ url('/admin/news-sub-category/create') }}">Add Category</a></li>
+                            <li><a href="{{ url('/news-sub-category') }}">Manage Category</a></li>
+                            <li><a href="{{ url('/news-sub-category/create') }}">Add Category</a></li>
 
 
                         </ul>
@@ -120,8 +120,8 @@
     
                         <ul class="collapse">
                            
-                            <li><a href="{{ url('/admin/general-settings/home-page-setting') }}">Home Page Setting</a></li>
-                            <li><a href="{{ url('/admin/general-settings/website-logo-setting') }}">Website logo Setting</a></li>
+                            <li><a href="{{ url('/general-settings/home-page-setting') }}">Home Page Setting</a></li>
+                            <li><a href="{{ url('/general-settings/website-logo-setting') }}">Website logo Setting</a></li>
     
     
                         </ul>
@@ -141,7 +141,7 @@
     
                         <ul class="collapse">
                            
-                            <li><a href="{{ url('/admin/contact/leads') }}">Manage</a></li>
+                            <li><a href="{{ url('/contact/leads') }}">Manage</a></li>
     
                         </ul>
                     </li>
@@ -163,8 +163,8 @@
 
 
                         <ul class="collapse">
-                            <li><a href="{{ url('/admin/contact') }}">Manage Contact</a></li>
-                            <li><a href="{{ url('/admin/contact/create') }}">Add Contact</a></li>
+                            <li><a href="{{ url('/contact') }}">Manage Contact</a></li>
+                            <li><a href="{{ url('/contact/create') }}">Add Contact</a></li>
 
 
                         </ul>
@@ -177,8 +177,8 @@
                             </span></a>
 
                         <ul class="collapse">
-                            <li><a href="{{ url('/admin/permission') }}">Manage</a></li>
-                            <li><a href="{{ url('/admin/permission/create') }}">Add</a></li>
+                            <li><a href="{{ url('/permission') }}">Manage</a></li>
+                            <li><a href="{{ url('/permission/create') }}">Add</a></li>
                         </ul>
                     </li>
                     @endif
@@ -190,8 +190,8 @@
                                 class="ti-layout-sidebar-left"></i><span>User
                             </span></a>
                         <ul class="collapse">
-                            <li><a href="{{ url('/admin/user') }}">Manage Users</a></li>
-                            <li><a href="{{ url('/admin/user/create') }}">Add User</a></li>
+                            <li><a href="{{ url('/user') }}">Manage Users</a></li>
+                            <li><a href="{{ url('/user/create') }}">Add User</a></li>
 
 
                         </ul>
@@ -206,8 +206,8 @@
                             </span></a>
 
                         <ul class="collapse">
-                            <li><a href="{{ url('/admin/role') }}">Manage Role</a></li>
-                            <li><a href="{{ url('/admin/role/create') }}">Add Role</a></li>
+                            <li><a href="{{ url('/role') }}">Manage Role</a></li>
+                            <li><a href="{{ url('/role/create') }}">Add Role</a></li>
                         </ul>
                     </li>
     

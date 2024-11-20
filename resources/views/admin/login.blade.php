@@ -51,7 +51,7 @@
                     
 
 <!--                         <div class="form-footer text-center mt-5">
-                            <p class="text-muted">Don't have an account? <a href="{{ url('/admin/register') }}">Sign up</a></p>
+                            <p class="text-muted">Don't have an account? <a href="{{ url('/register') }}">Sign up</a></p>
                         </div> -->
 
                    

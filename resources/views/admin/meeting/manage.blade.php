@@ -131,7 +131,7 @@
 
                                         <a class="dropdown-item" href="{{route('meeting.edit', $value->id)}}">Edit</a>
                                         @if($value->scheduleStatus == 1)
-                                         <a class="dropdown-item" href="{{ url('/admin/meeting/activate', $value->id) }}">Activate</a>
+                                         <a class="dropdown-item" href="{{ url('/meeting/activate', $value->id) }}">Activate</a>
                                         @endif 
 
                                             <a class="dropdown-item" onclick="deleteRecord('{{$value->id}}','Delete this Meeting details?','Are you sure you want to delete this Meeting details?');">Delete</a>
