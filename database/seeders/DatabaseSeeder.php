@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
         NewsCategoriesSeeder::class,
         GeneralSettingsSeeder::class,
         WebsiteLogoSeeder::class,
-        PermissionGroupSeeder::class
+        PermissionGroupSeeder::class,
+        RoleSeeder::class
        ]);
     }
 }

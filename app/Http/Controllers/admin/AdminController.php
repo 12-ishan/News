@@ -37,8 +37,7 @@ class AdminController extends Controller
             if (Auth::attempt($credentials)) {
 
                 $user = Auth::user();
-              //dd($user);
-              //  if ($user->roleId === 1 || $user->roleId === 2) {
+            if ($user->roleId === 1) {  //super admin roleId = 1
               if($user){
                     return redirect()->intended('dashboard');
                     
@@ -52,6 +51,7 @@ class AdminController extends Controller
                 // Authentication passed...
                 
             }
+        }
             return Redirect::to("login")->with('message', 'Oppes! You have entered invalid credentials');
     }
 
