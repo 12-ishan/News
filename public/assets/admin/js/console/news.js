@@ -1,27 +1,21 @@
-$(document).ready(function () {
-
-    // CKEDITOR.replace( '.ckeditor',{
-    //     height: 250,
-    //     //filebrowserUploadUrl: "upload.php"
-    // });
-     
+$(document).ready(function () { 
     $('select').selectpicker();
 
     ///////////////////////////
 
-    $("#deleteAllContact").on('submit', (function (e) {
+    $("#deleteAllNews").on('submit', (function (e) {
         e.preventDefault();
 
         var length = $('.checkBoxClass:checked').length > 0;
         if (!length) {
 
             $("#messageModal").modal('show');
-            $("#messageBox").html('<p>No record selected please select Contact.</p>');
+            $("#messageBox").html('<p>No record selected please select news.</p>');
             return false;
         }
 
         $.ajax({
-            url: '/admin/contact/leads/destroyAll',
+            url: '/admin/news/destroyAll',
             type: 'post',
             data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
             contentType: false,       // The content type used when sending data to the server.
@@ -44,16 +38,24 @@ $(document).ready(function () {
                         $('#item' + $(this).val()).hide();
                     });
                     $("#messageModal").modal('show');
-                    $("#messageBox").html('<p>Contact information  deleted successfully</p>');
+                    $("#messageBox").html('<p>news information  deleted successfully</p>');
+                }
+            },
+
+                error: function (xhr) {
+                    if (xhr.status === 403) {
+                        $("#messageModal").modal('show');
+                        $("#messageBox").html('<p style="color:red">You are not allowed to delete news.</p>');
+                    } 
                 }
 
-            }
+            
         });
     }));
 
     ///////////////////////////
 
-    var table = $('#contactTable').DataTable({
+    var table = $('#newsTable').DataTable({
         rowReorder: true,
         stateSave: true,
         "lengthMenu": [[50, 100, 200, -1], [50, 100, 200, "All"]],
@@ -63,42 +65,33 @@ $(document).ready(function () {
         ]
     });
 
+    // console.log(table);
     ///////////////////////////
 
 
-
-   
-       
-  
-
-
-
     table.on('row-reorder', function (e, diff, edit) {
-
-        //   var result = 'Reorder started on row: '+edit.triggerRow.data()[1]+'<br>';
 
         var arr = [];
 
         for (var i = 0, ien = diff.length; i < ien; i++) {
             var rowData = table.row(diff[i].node).data();
+           //console.log(rowData);
 
             arr.push({
                 id: rowData[2],
                 position: diff[i].newData
             });
 
-            // result += rowData[1]+' updated to be in position '+
-            // diff[i].newData+' (was '+diff[i].oldData+')<br>';
+          // console.log(rowData);
+
         }
 
         if (arr.length === 0) { return false; }
 
-        // console.log(JSON.stringify(arr));
-
 
         $.ajax({
             type: 'POST',
-            url: '/admin/contact/leads/updateSortorder',
+            url: '/admin/news/updateSortorder',
             data: {
                 'records': JSON.stringify(arr)
             },
@@ -107,14 +100,13 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (data) {
+                console.log(data);
 
                 if (data.status) {
 
                     $("#messageModal").modal('show');
                     $("#messageBox").html('<p>Order updated successfully.</p>');
-                    // $('#item' + Id).remove();
-                    //   $(".loading").hide();
-
+                    
                 } else {
 
                     $("#messageModal").modal('show');
@@ -127,17 +119,9 @@ $(document).ready(function () {
 
                 $("#messageModal").modal('show');
                 $("#messageBox").html('<p>Sorry, something went wrong. Please try again after sometime.</p>');
-                //   $(".loading").hide();
+               
             }
         });
-
-
-
-        //       $.each(arr, function (index, value) {
-        //   alert( value.name + ' : ' + value.position );
-        //   });
-
-        //  $('#result').html( 'Event result:<br>'+result );
 
 
     });
@@ -159,7 +143,7 @@ $(document).ready(function () {
                 id: id,
                 status: status,
             },
-            url: '/admin/contact/leads/updateStatus',
+            url: '/admin/news/updateStatus',
             dataType: 'json',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -201,7 +185,9 @@ function deleteAll(Id, title, message) {
 ///////////////////////////
 
 function deleteRecord(id, title, message) {
-    
+    console.log(title);
+
+    console.log(message);
 
     $("#deleteAlertBox").modal('show');
     $('#deleteMessageHeading').html(title);
@@ -216,7 +202,7 @@ function deleteRecord(id, title, message) {
                 id: id,
                 _method: "DELETE",
             },
-            url: '/admin/contact/leads/destroy',
+            url: '/admin/news/destroy',
             dataType: 'json',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -233,10 +219,17 @@ function deleteRecord(id, title, message) {
 
                     $('#item' + id).hide();
                     $("#messageModal").modal('show');
-                    $("#messageBox").html('<p>Contact information  deleted successfully</p>');
+                    $("#messageBox").html('<p>news information  deleted successfully</p>');
 
                 }
 
+            },
+
+            error: function (xhr) {
+                if (xhr.status === 403) {
+                    $("#messageModal").modal('show');
+                    $("#messageBox").html('<p style="color:red">You are not allowed to delete news.</p>');
+                } 
             }
         });
     });

@@ -41,19 +41,46 @@
                                 <div class="col-6 mt-5">
                                     <div class="form-group">
                                         <label for="roleName">Role Name</label>
-                                        <input type="text" class="form-control" id="roleName" name="roleName" placeholder="Enter role" value="{{old('roleName',  isset($role->roleName) ? $role->roleName : NULL)}}">
+                                        <input type="text" class="form-control" id="roleName" name="roleName" placeholder="Enter role" value="{{old('roleName',  isset($role->name) ? $role->name : NULL)}}">
                                     </div>
                                 </div> 
                             </div>
-                            @foreach($permissionHead as $value)
+
+ 
                             
-                            <div>
-                                <input type="checkbox" class="checkBoxClass" name="permissions[]" value="{{$value->id}}">  
-                                @isset($value->name){{$value->name}}@else NA @endif
-                            </div>
-                                    
-                            @endforeach
+                            <div class="row">
+                                
+                                <div class="col-12 mt-5">
+                                @foreach($permissionHead as $group)
+                                    <div class="">
+                                        <li class="mt-2"><label  for="permission"><strong class="h5 text-dark">{{ $group->name ?? '' }}</strong></label></li>
+                            
+                                        @if($group->permissionByGroup->isNotEmpty())
+                                            @foreach($group->permissionByGroup as $value)
+                                            @if(isset($group->permissionByGroup))
+                                                <div class="pl-4">
+                                                    <input type="checkbox" class="checkBoxClass" name="permissions[]" 
+                                                           value="{{ $value->id }}" 
+                                                           id="permission_{{ $value->id }}"
+                                                           @if(in_array($value->id, $rolePermissions)) checked @endif>  
+                                                    {{ $value->name ?? 'NA' }}
+                                                </div>
+                                               
+                                                @endif
+                                               
+                                            @endforeach
+                                            @else
+                                            <p class="pl-4">no permission</p>
+                                           
+                                      @endif
+                                    </div>
+                                @endforeach
+                                </div>
+                         
                            
+                                </div>
+                        
+                        
                             @if(isset($role->id))
                             <input type="hidden" name="id" value="{{ $role->id }}">
                             @endif

@@ -6,10 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class PermissionHead extends Model
 {
-    protected $table = 'permission_head';
+    protected $table = 'permission';
+    protected $primaryKey = 'id';
 
-    public function role(){
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_permission', 'permission_id', 'role_id');
+    }
 
-        return $this->belongsTo(RolePermission::class, 'role_permission');
+    public function permissionGroup()
+    {
+        return $this->belongsTo(PermissionGroup::class, 'permission_group_id');
     }
 }

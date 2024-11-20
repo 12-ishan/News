@@ -42,14 +42,14 @@
 
            
 
-                                <div class="col-6 mt-5">
+                                {{-- <div class="col-6 mt-5">
                                     <div class="form-group">
                                         <label for="username">Username</label>
                                         <input type="text" class="form-control" id="username" name="username"
                                             placeholder="Enter username"
                                             value="{{old('username',  isset($user->username) ? $user->username : NULL)}}"  <?php if(isset($editStatus)){echo "readonly";} ?>>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-6 mt-5">
                                     <div class="form-group">
@@ -77,7 +77,7 @@
                                     </div>
                                 </div>
 
-                                @if(isset(Auth::user()->roleId))
+                                {{-- @if(isset(Auth::user()->roleId))
                                 @if(Auth::user()->roleId == 1)
 
                                  <div class="col-6 mt-5">
@@ -98,7 +98,7 @@
                                 </div>
 
                                 @endif
-                                @endif
+                                @endif --}}
 
                                 @if(isset(Auth::user()->roleId))
                                 @if(Auth::user()->roleId == 1)
@@ -110,9 +110,9 @@
                                             <option value="">Select Role</option>
                                             @if(isset($role))
                                             @foreach($role as $value)
-                                            <option value="{{$value->id}}" @if (old('roleId', isset($user->roleId) ?
-                                                $user->roleId : NULL) == $value->id) selected="selected"
-                                                @endif>{{$value->name}}</option>
+                                            <option value="{{$value->id}}" @if (old('role', in_array($value->id, $hasRole ?? []))) 
+                                                selected="selected" 
+                                            @endif>{{$value->name}}</option>
                                             @endforeach
                                             @endif
                                         </select>
@@ -129,9 +129,6 @@
                                 @endif
                                 @endif
 
-
-                            </div>
-                            <div class="row">
                                 <div class="col-6 mt-6">
                                     <div class="form-group">
                                         <label for="name">Thumbnail</label>
@@ -146,9 +143,13 @@
                                     </div>
                                 </div>
                                 @endif
-                            </div>
 
-                            <div class="row">
+                            </div>
+                            {{-- <div class="row">
+                                
+                            </div> --}}
+
+                            {{-- <div class="row">
                                 <div class="col-6 mt-5">
                                     <div class="form-group">
                                         <label for="meetingUsername">Meeting User ID</label>
@@ -165,7 +166,7 @@
                                             value="{{old('meetingPassword',  isset($user->meetingPassword) ? $user->meetingPassword : NULL)}}">
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             @if(isset($user->id))
                             <input type="hidden" name="id" value="{{ $user->id }}">
@@ -188,12 +189,7 @@ $(document).ready(function() {
 
     $("#userfrm").submit(function() {
 
-        if ($("#username").val() == "") {
-            $("#err").text("Please enter your user name");
-            $("#username").focus();
-            return false;
-        }
-
+      
         if ($("#name").val() == "") {
             $("#err").text("Please enter your name");
             $("#name").focus();

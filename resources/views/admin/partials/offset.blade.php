@@ -8,17 +8,22 @@
         <div class="offset-content tab-content">
             <div id="activity" class="tab-pane fade in show active">
                 <div class="recent-activity">
+                  {{-- {{  print_r($activities)}} --}}
+                    @if(isset($activities))
+                    @foreach($activities as $activity)
                     <div class="timeline-task">
                         <div class="icon bg1">
-                            <i class="fa fa-envelope"></i>
+                            <i class="fa fa-check"></i>
                         </div>
                         <div class="tm-title">
-                            <h4>Rashed sent you an email</h4>
-                            <span class="time"><i class="ti-time"></i>09:35</span>
+                            <h4>{{$activity->event}}</h4>
+                            <span class="time"><i class="ti-time"></i>{{$activity->created_at}}</span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
+                        <p>{{$activity->description}}
                         </p>
                     </div>
+                    @endforeach
+                    @endif
                     <div class="timeline-task">
                         <div class="icon bg2">
                             <i class="fa fa-check"></i>

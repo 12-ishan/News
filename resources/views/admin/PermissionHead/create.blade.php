@@ -16,7 +16,7 @@
                         <!-- <h4 class="header-title">Basic form</h4> -->
                          <p id="err" style="color:red;"></p>
 
-                        <form id="permissionHeadForm" method="post" action="@if(isset($editStatus)){{ route('permissionHead.update', $permissionHead->id) }} @else {{ route('permissionHead.store')}}@endif" enctype='multipart/form-data'>
+                        <form id="permissionHeadForm" method="post" action="@if(isset($editStatus)){{ route('permission.update', $permissionHead->id) }} @else {{ route('permission.store')}}@endif" enctype='multipart/form-data'>
 
                             {{ csrf_field() }}
 
@@ -37,6 +37,24 @@
                             @endforeach
 
                             <div class="row">
+
+
+                                <div class="col-6 mt-5">
+                                    <div class="form-group">
+                                        <label for="categoryId">Permission Group</label>
+                                        <select class="form-control selectpicker" id="permissionGroupId" name="permissionGroupId"
+                                            data-live-search="true">
+                                            <option value="">Select Group</option>
+                                            @if (isset($permissionGroup))
+                                                @foreach ($permissionGroup as $value)
+                                                    <option value="{{ $value->id }}"
+                                                        @if (old('permissionGroupId', isset($permissionHead->permission_group_id) ? $permissionHead->permission_group_id : null) == $value->id) selected="selected" @endif>
+                                                        {{ $value->name }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
 
                                 <div class="col-6 mt-5">
                                     <div class="form-group">

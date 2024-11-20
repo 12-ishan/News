@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\PermissionHead;
+use App\Models\Admin\PermissionGroup;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PermissionHeadController extends Controller
 {
@@ -13,9 +15,16 @@ class PermissionHeadController extends Controller
     {
         $this->middleware('auth');
         $this->middleware(function ($request, $next) {
-            $this->userId = Auth::user()->id;
-            $this->accountId = Auth::user()->accountId;
-            return $next($request);
+            $user = Auth::user();
+    
+            if ($user->roleId == 1) {
+                $this->userId = $user->id;
+                // $this->accountId = $user->accountId;
+    
+                return $next($request);
+            }
+    
+            return response()->view('admin.permissionDenied', [], 403);
         });
     }
     /**
@@ -38,6 +47,9 @@ class PermissionHeadController extends Controller
     {
         //
         $data = array();
+        $data["permissionGroup"] = PermissionGroup::where('status',1)->orderBy('sortOrder')->get();
+
+       
         $data["pageTitle"] = 'Add Permission Head';
         $data["activeMenu"] = 'permissionHead';
         return view('admin.permissionHead.create')->with($data);
@@ -50,16 +62,18 @@ class PermissionHeadController extends Controller
     {
         //
         $this->validate(request(), [
-            'name' => 'required',
+            'name' => 'required|unique:permission',
         ]);
 
         $permissionHead = new PermissionHead();
         $permissionHead->name = $request->input('name');
+        $permissionHead->slug = str::slug($request->input('name'));
+        $permissionHead->permission_group_id = $request->input('permissionGroupId');
         $permissionHead->status = 1;
         $permissionHead->sortOrder = 1;
         $permissionHead->increment('sortOrder');
         $permissionHead->save();
-        return redirect()->route('permissionHead.index')->with('message', 'permissionHead Added Successfully');
+        return redirect()->route('permission.index')->with('message', 'permissionHead Added Successfully');
 
     }
 
@@ -80,6 +94,8 @@ class PermissionHeadController extends Controller
         //
         $data = array();
         $data['permissionHead'] = PermissionHead::find($id);
+        $data["permissionGroup"] = PermissionGroup::where('status',1)->orderBy('sortOrder')->get();
+
         $data["editStatus"] = 1;
         $data["pageTitle"] = 'Update Permission Head';
         $data["activeMenu"] = 'permissionHead';
@@ -99,6 +115,8 @@ class PermissionHeadController extends Controller
 
         $permissionHead = PermissionHead::find($id);
         $permissionHead->name = $request->input('name');
+        $permissionHead->slug = str::slug($request->input('name'));
+        $permissionHead->permission_group_id = $request->input('permissionGroupId');
         $permissionHead->save();
         return redirect()->route('permissionHead.index')->with('message', 'Permission Head Updated Successfully');
     }

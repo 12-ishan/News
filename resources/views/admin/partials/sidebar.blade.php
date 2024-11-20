@@ -3,7 +3,7 @@
     <div class="sidebar-header">
         <div class="logo">
             <!-- <a href="index.html"><img src="{{ asset('assets/admin/images/icon/logo.png') }}" alt="logo"></a> -->
-            <p style="color:#fff; text-decoration: underline;">Application Dashboard</p>
+            <p style="color:#fff; text-decoration: underline;">News Dashboard</p>
         </div>
     </div>
     <div class="main-menu">
@@ -21,15 +21,17 @@
 
                    
 
-                       <li @if(isset($activeMenu)) @if($activeMenu=='Product' ) class="active" @endif @endif>
+                       <li @if(isset($activeMenu)) @if($activeMenu=='news' ) class="active" @endif @endif>
                         <a href="javascript:void(0)" aria-expanded="true"><i
-                                class="ti-layout-sidebar-left"></i><span>Product Manager
+                                class="ti-layout-sidebar-left"></i><span>News Manager
                             </span></a>
 
                         <ul class="collapse">
-                            <li><a href="{{ url('/admin/product') }}">Manage Product</a></li>
-                            <li><a href="{{ url('/admin/product/create') }}">Add Product</a></li>
-
+                            <li><a href="{{ url('/admin/news') }}">Manage News</a></li>
+                            {{-- <li><a href="{{ url('/admin/news/create') }}">Add News</a></li> --}}
+                            @if((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || Auth::user()->hasPermission('create-news'))
+                            <li><a href="{{ url('/admin/news/create') }}">Add News</a></li>
+                        @endif
 
                         </ul>
                     </li>
@@ -50,91 +52,66 @@
 
 
 
-                    <li @if(isset($activeMenu)) @if($activeMenu=='Order' ) class="active" @endif @endif>
+                  
+
+
+
+                    <li @if(isset($activeMenu)) @if($activeMenu=='News Category' ) class="active" @endif @endif>
                         <a href="javascript:void(0)" aria-expanded="true"><i
-                                class="ti-layout-sidebar-left"></i><span>Order Manager
+                                class="ti-layout-sidebar-left"></i><span>News Category
                             </span></a>
 
+
                         <ul class="collapse">
-                            <li><a href="{{ url('/admin/order') }}">Show Order</a></li>
-                            {{-- <li><a href="{{ url('/admin/product/create') }}">Add Product</a></li> --}}
+                            <li><a href="{{ url('/admin/news-category') }}">Manage Category</a></li>
+                            <li><a href="{{ url('/admin/news-category/create') }}">Add Category</a></li>
 
 
                         </ul>
                     </li>
 
 
-
-                    <li @if(isset($activeMenu)) @if($activeMenu=='Product Category' ) class="active" @endif @endif>
+                    {{-- <li @if(isset($activeMenu)) @if($activeMenu=='News Sub Category' ) class="active" @endif @endif>
                         <a href="javascript:void(0)" aria-expanded="true"><i
-                                class="ti-layout-sidebar-left"></i><span>Product Category
+                                class="ti-layout-sidebar-left"></i><span>News Sub Category
                             </span></a>
 
 
                         <ul class="collapse">
-                            <li><a href="{{ url('/admin/product-category') }}">Manage Category</a></li>
-                            <li><a href="{{ url('/admin/product-category/create') }}">Add Category</a></li>
+                            <li><a href="{{ url('/admin/news-sub-category') }}">Manage Category</a></li>
+                            <li><a href="{{ url('/admin/news-sub-category/create') }}">Add Category</a></li>
 
 
                         </ul>
-                    </li>
+                    </li> --}}
 
 
-                    <li @if(isset($activeMenu)) @if($activeMenu=='coupon' ) class="active" @endif @endif>
-                        <a href="javascript:void(0)" aria-expanded="true"><i
-                                class="ti-layout-sidebar-left"></i><span>Coupon Manager
-                            </span></a>
-
-
-                        <ul class="collapse">
-                            <li><a href="{{ url('/admin/coupon') }}">Manage Coupon</a></li>
-                            <li><a href="{{ url('/admin/coupon/create') }}">Add Coupon</a></li>
-
-
-                        </ul>
-                    </li>
+                  
                   
                    
 
-                    @if(isset(Auth::user()->roleId))
-                    @if(Auth::user()->roleId == 1)
+                    {{-- @if(isset(Auth::user()->roleId))
+                    @if(Auth::user()->roleId == 1) --}}
 
 
-                    <li @if(isset($activeMenu)) @if($activeMenu=='master' ) class="active" @endif @endif>
+                    {{-- <li @if(isset($activeMenu)) @if($activeMenu=='master' ) class="active" @endif @endif>
                         <a href="javascript:void(0)" aria-expanded="true"><i
                                 class="ti-layout-sidebar-left"></i><span>Master MGMT
                             </span></a>
 
 
-                            <ul class="collapse">
-                                <li @if(isset($activeSubMenu)) @if($activeSubMenu=='attributes' ) class="active" @endif @endif>
-                                    <a href="#" aria-expanded="true">Attributes</a>
-                                    <ul class="collapse">
-                                        <li><a href="{{ url('/admin/product-attributes') }}">Manage Attributes</a></li>
-                                        <li><a href="{{ url('/admin/product-attributes/create') }}">Add Attributes</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                          
 
+                          
 
-                            <ul class="collapse">
-                                <li @if(isset($activeSubMenu)) @if($activeSubMenu=='options' ) class="active" @endif @endif>
-                                    <a href="#" aria-expanded="true">Attributes Options</a>
-                                    <ul class="collapse">
-                                        <li><a href="{{ url('/admin/attribute-options') }}">Manage Options</a></li>
-                                        <li><a href="{{ url('/admin/attribute-options/create') }}">Add Options</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                    </li> --}}
 
-                    </li>
-
-                    @endif
-                    @endif
+                    {{-- @endif
+                    @endif --}}
  
-                    @if(isset(Auth::user()->roleId))
+                    {{-- @if(isset(Auth::user()->roleId))
                     @if(Auth::user()->roleId == 1)
-    
+     --}}
                     <li @if(isset($activeMenu)) @if($activeMenu=='generalSettings' ) class="active" @endif @endif>
                         <a href="javascript:void(0)" aria-expanded="true"><i
                                 class="ti-layout-sidebar-left"></i><span>General Settings
@@ -149,12 +126,12 @@
     
                         </ul>
                     </li>
-                    @endif
-                    @endif
+                    {{-- @endif
+                    @endif --}}
 
 
-                    @if(isset(Auth::user()->roleId))
-                    @if(Auth::user()->roleId == 1)
+                    {{-- @if(isset(Auth::user()->roleId))
+                    @if(Auth::user()->roleId == 1) --}}
     
                     <li @if(isset($activeMenu)) @if($activeMenu=='contact leads' ) class="active" @endif @endif>
                         <a href="javascript:void(0)" aria-expanded="true"><i
@@ -168,18 +145,18 @@
     
                         </ul>
                     </li>
-                    @endif
-                    @endif
+                    {{-- @endif
+                    @endif --}}
                   
 
                   
 
-                    @if(isset(Auth::user()->roleId))
-                    @if(Auth::user()->roleId == 1)
+                    {{-- @if(isset(Auth::user()->roleId))
+                    @if(Auth::user()->roleId == 1) --}}
 
                    
 
-                    <li @if(isset($activeMenu)) @if($activeMenu=='contact' ) class="active" @endif @endif>
+                    {{-- <li @if(isset($activeMenu)) @if($activeMenu=='contact' ) class="active" @endif @endif>
                         <a href="javascript:void(0)" aria-expanded="true"><i
                                 class="ti-layout-sidebar-left"></i><span>Contact
                             </span></a>
@@ -191,11 +168,23 @@
 
 
                         </ul>
+                    </li> --}}
+                    @if((isset(Auth::user()->roleId) && Auth::user()->roleId == 1))
+
+                    <li @if(isset($activeMenu)) @if($activeMenu=='permissionHead' ) class="active" @endif @endif>
+                        <a href="javascript:void(0)" aria-expanded="true"><i
+                                class="ti-layout-sidebar-left"></i><span>Permission Head
+                            </span></a>
+
+                        <ul class="collapse">
+                            <li><a href="{{ url('/admin/permission') }}">Manage</a></li>
+                            <li><a href="{{ url('/admin/permission/create') }}">Add</a></li>
+                        </ul>
                     </li>
+                    @endif
 
-                  
 
-
+                    @if((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || Auth::user()->hasRole('admin'))
                     <li @if(isset($activeMenu)) @if($activeMenu=='user' ) class="active" @endif @endif>
                         <a href="javascript:void(0)" aria-expanded="true"><i
                                 class="ti-layout-sidebar-left"></i><span>User
@@ -207,7 +196,10 @@
 
                         </ul>
                     </li>
+                    @endif
 
+
+                    @if((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || Auth::user()->hasRole('admin'))
                     <li @if(isset($activeMenu)) @if($activeMenu=='role' ) class="active" @endif @endif>
                         <a href="javascript:void(0)" aria-expanded="true"><i
                                 class="ti-layout-sidebar-left"></i><span>Role
@@ -218,14 +210,15 @@
                             <li><a href="{{ url('/admin/role/create') }}">Add Role</a></li>
                         </ul>
                     </li>
-
+    
+                    @endif
                   
 
 
                   
                    
-                    @endif
-                    @endif
+                    {{-- @endif
+                    @endif --}}
 
 
                 </ul>

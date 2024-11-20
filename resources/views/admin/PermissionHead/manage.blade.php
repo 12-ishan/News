@@ -32,11 +32,11 @@
                                     </a>
 
 
-                                    <a href="{{route('permissionHead.index')}}">
+                                    <a href="{{route('permission.index')}}">
                                         <button type="button" class="btn btn-flat btn-secondary mb-3">Refresh</button>
                                     </a>
 
-                                    <a href="{{route('permissionHead.create')}}">
+                                    <a href="{{route('permission.create')}}">
                                         <button type="button" class="btn btn-flat btn-secondary mb-3">Add Permission Head</button>
                                     </a>
 
@@ -86,7 +86,7 @@
                                             Action
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{route('permissionHead.edit', $value->id)}}">Edit</a>
+                                            <a class="dropdown-item" href="{{ route('permission.edit', $value->id) }}">Edit</a>
                                             <a class="dropdown-item" onclick="deleteRecord('{{$value->id}}','Delete this Permission Head details?','Are you sure you want to delete this Permission Head details?');">Delete</a>
                                         </div>
                                     </td>

@@ -32,7 +32,7 @@
                                     </a>
 
 
-                                    <a href="{{route('product-category.index')}}">
+                                    <a href="{{route('landing-page.index')}}">
                                         <button type="button" class="btn btn-flat btn-secondary mb-3">Refresh</button>
                                     </a>
 

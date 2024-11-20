@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Model\Admin\User;
-use App\Model\Admin\Role;
+use App\Models\Admin\User;
+use App\Models\Admin\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -13,15 +13,33 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    //     $this->middleware(function ($request, $next) {
+    //         $this->userId = Auth::user()->id;
+    //        // $this->accountId = Auth::user()->accountId;
+    //         return $next($request);
+    //     });
+    // }
     public function __construct()
     {
         $this->middleware('auth');
         $this->middleware(function ($request, $next) {
-            $this->userId = Auth::user()->id;
-           // $this->accountId = Auth::user()->accountId;
-            return $next($request);
+            $user = Auth::user();
+    
+            if ($user->roleId == 1) {
+                $this->userId = $user->id;
+                // $this->accountId = $user->accountId;
+    
+                return $next($request);
+            }
+    
+            return response()->view('admin.permissionDenied', [], 403);
         });
     }
+    
+
 
     /**
      * Display a listing of the resource.
@@ -65,7 +83,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'username' => 'required|unique:users',
+           // 'username' => 'required|unique:users',
             'name' => 'required',
             'password' => 'required',
             'roleId' => 'required',
@@ -91,12 +109,12 @@ class UserController extends Controller
  
          }
 
-        $user->username = $request->input('username');
+       // $user->username = $request->input('username');
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
-        $user->meetingUsername = $request->input('meetingUsername');
-        $user->meetingPassword = $request->input('meetingPassword');
+        // $user->meetingUsername = $request->input('meetingUsername');
+        // $user->meetingPassword = $request->input('meetingPassword');
 
         $user->roleId = $request->input('roleId');
         $user->parentId = $request->input('parentId');
@@ -106,6 +124,8 @@ class UserController extends Controller
         $user->increment('sortOrder');
 
         $user->save();
+
+        $user->roles()->sync($request->roleId);
 
         return redirect()->route('user.index')->with('message', 'User Added Successfully');
     }
@@ -153,7 +173,7 @@ class UserController extends Controller
     {
 
         $this->validate(request(), [
-            'username' => 'required',
+           // 'username' => 'required',
             'name' => 'required',
             'roleId' => 'required',
             'email' => 'required|email',
@@ -181,8 +201,8 @@ class UserController extends Controller
         $user->name = $request->input('name');
        // $user->email = $request->input('email');
 
-        $user->meetingUsername = $request->input('meetingUsername');
-        $user->meetingPassword = $request->input('meetingPassword');
+        // $user->meetingUsername = $request->input('meetingUsername');
+        // $user->meetingPassword = $request->input('meetingPassword');
 
         if($request->filled('password')) {
 
@@ -195,7 +215,9 @@ class UserController extends Controller
         $user->parentId = $request->input('parentId');
         $user->save();
 
-        return redirect()->route('user.edit', ['id'=>  $id])->with('message', 'User Updated Successfully');
+        $user->roles()->sync($request->roleId);
+
+        return redirect()->route('user.index')->with('message', 'User Updated Successfully');
     }
 
     /**

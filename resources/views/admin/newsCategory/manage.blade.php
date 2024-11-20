@@ -17,7 +17,7 @@
                                     <button type="button" class="btn btn-flat btn-secondary mb-3" onclick="checkAll(1)">Check All</button>
                                     <button type="button" class="btn btn-flat btn-secondary mb-3" onclick="checkAll(0)">Uncheck</button>
 
-                                    <button type="button" class="btn btn-flat btn-danger mb-3" onclick="deleteAll('deleteAllRole','Delete these Role\'s details?','Are you sure you want to delete these Role\'s details?');">
+                                    <button type="button" class="btn btn-flat btn-danger mb-3" onclick="deleteAll('deleteAllNewsCategory','Delete these category\'s details?','Are you sure you want to delete these category\'s details?');">
                                         Delete</button>
 
                                     <div class="loading"></div>
@@ -32,13 +32,18 @@
                                     </a>
 
 
-                                    <a href="{{route('role.index')}}">
+                                    <a href="{{route('news-category.index')}}">
                                         <button type="button" class="btn btn-flat btn-secondary mb-3">Refresh</button>
                                     </a>
 
-                                    <a href="{{route('role.create')}}">
-                                        <button type="button" class="btn btn-flat btn-secondary mb-3">Add Role</button>
+                                    <a href="{{route('news-category.create')}}">
+                                        <button type="button" class="btn btn-flat btn-secondary mb-3">Add News Category</button>
                                     </a>
+
+
+<!--                                 "> -->
+                                      <!--   <button type="button" class="btn btn-flat btn-secondary mb-3">Add ourServices</button>
+                                    </a> -->
 
                                 </div>
 
@@ -48,22 +53,22 @@
                     </div>
                 </div>
 
-                <form method="post" id="deleteAllRole">
+                <form method="post" id="deleteAllNewsCategory">
 
                     <div class="data-tables">
-                        <table id="roleTable" class="text-center">
+                        <table id="newsCategoryTable" class="text-center">
                             <thead class="bg-light text-capitalize">
                                 <tr>
                                     <th width="5%">Seq.</th>
                                     <th style="width:2px;max-width:2px;"></th>
-                                    <th>Role Name</th>
-                                    <th>URL</th>
+                                    <th>Name</th>
+                                    <th>Url</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($role as $value)
+                                @foreach($newsCategory as $value)
 
                                 <tr id="item{{$value->id}}">
                                     <td> {{$loop->iteration}} </td>
@@ -71,26 +76,28 @@
                                         <input type="checkbox" class="checkBoxClass" name="deleterecords[]" value="{{$value->id}}">
                                     </td>
 
-                                    <td>@isset($value->name){{$value->name}}@else NA @endif</td>
+                                   <td>@isset($value->name)
+                                    {{$value->name}}
+                                    @else
+                                    NA
+                                    @endif</td>
                                     <td>@isset($value->slug){{$value->slug}}@else NA @endif</td>
-                                    
-
-                                    <td> 
-                
+                             
+                                    <td>
                                         <label class="label-switch switch-success">
                                             <input type="checkbox" class="switch switch-bootstrap status" name="status" data-id="{{$value->id}}" @if($value->status == 1) checked="checked" @endif /> 
                                             <span class="lable"></span>
                                         </label>
 
                                     </td>
-                                   
+                                    <!-- <td>{{$value->created_at}}</td> -->
                                     <td>
                                         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
                                             Action
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{route('role.edit', $value->id)}}">Edit</a>
-                                            <a class="dropdown-item" onclick="deleteRecord('{{$value->id}}','Delete this Role details?','Are you sure you want to delete this Role details?');">Delete</a>
+                                            <a class="dropdown-item" href="{{route('news-category.edit', $value->id)}}">Edit</a>
+                                            <a class="dropdown-item" onclick="deleteRecord('{{$value->id}}','Delete this category details?','Are you sure you want to delete this category details?');">Delete</a>
                                         </div>
                                     </td>
 
@@ -110,7 +117,7 @@
 </div>
 
 @section('js')
-<script src="{{ asset('assets/admin/js/console/role.js') }}"></script>
+<script src="{{ asset('assets/admin/js/console/newsCategory.js') }}"></script>
 @append
 
 @endsection

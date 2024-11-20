@@ -14,13 +14,53 @@
                             <div class="row control">
                                 <div class="col-6 left-control">
 
-                                    <button type="button" class="btn btn-flat btn-secondary mb-3" onclick="checkAll(1)">Check All</button>
-                                    <button type="button" class="btn btn-flat btn-secondary mb-3" onclick="checkAll(0)">Uncheck</button>
+                                    <form action="{{ route('search-export') }}" method="GET">
+                                        <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="input-group date date-picker" data-date-format="mm-dd-yyyy" >
+                                            <input type="text" name="frmVal1" class="form-control " data-date-format="mm-dd-yyyy" placeholder="From Date" value="<?php
+                                            if (isset($record)) {
+                                            echo $record['frmVal1'];
+                                            }
+                                            ?>"/>
+                                            <span class="input-group-btn">
+                                            <button class="btn default " type="button"><i class="fa fa-calendar"></i></button>
+                                            </span>
+                                            </div>
+                                            </div>
 
-                                    <button type="button" class="btn btn-flat btn-danger mb-3" onclick="deleteAll('deleteAllContact','Delete these Contact\'s details?','Are you sure you want to delete these Contact\'s details?');">
-                                        Delete</button>
 
-                                    <div class="loading"></div>
+                                               
+						    	<div class="col-sm-4">
+                                    <div class="input-group date date-picker" data-date-format="mm-dd-yyyy" >
+                                    <input type="text" name="frmVal2" class="form-control " data-date-format="mm-dd-yyyy" placeholder="To Date"  value="<?php
+                                    if (isset($record)) {
+                                    echo $record['frmVal2'];
+                                    }
+                                    ?>"/>
+                                    <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    </div>
+                                    </div>
+
+                                
+                                        <input type="hidden" id="export" name="export"  value=''>
+                                        <div class="col-sm-4">
+                                        <input id="search_button" type="submit" class="btn btn-info btn-block" value="Search"  />
+                                        </div>
+                                        <div class="col-sm-4">
+                                        <a style="text-decoration:none;" class="active" href=""><input type="button" value="Reset" class="btn red-sunglo btn-block"></a>
+                                        </div>
+                                        
+                                        
+                                        <div class="col-sm-4">
+                                        <input id="export_button" type="submit" class="btn blue-hoki btn-block" value="Export"  />
+                                        </div>
+                                        
+                                    </div>
+                                                
+                                    </form>
 
 
                                 </div>
@@ -133,6 +173,34 @@
 
 @section('js')
 <script src="{{ asset('assets/admin/js/console/contactLeads.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+
+
+
 @append
+
+<script type="text/javascript">
+    $(document).ready(function () {
+      //  alert("test");
+        $('.date-picker').datepicker({
+        format: 'mm-dd-yyyy', 
+        autoclose: true
+    });
+
+    $('#search_button').on('click', function () {
+      //  alert("test");
+            $('#export').val(0);
+        });
+
+        // Set export value to 1 for Export button
+        $('#export_button').on('click', function () {
+           // alert("test");
+            $('#export').val(1);
+        });
+});
+</script>
+
+
 
 @endsection
