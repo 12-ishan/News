@@ -28,7 +28,7 @@ use App\Http\Controllers\admin\UserActivityController;
 |
 */
 
-Route::get('/admin/activity', [UserActivityController::class, 'activity'])->name('activity');
+Route::get('/activity', [UserActivityController::class, 'activity'])->name('activity');
 
 //Registration Routing
 Route::get('/registration', [RegistrationController::class, 'index'])->name('studentRegistration');
@@ -55,38 +55,38 @@ Route::get('/login', [StudentController::class, 'index'])->name('studentLogin');
 Route::post('/doStudentLogin',[StudentController::class, 'doStudentLogin'])->name('doStudentLogin');
 //Login Routing ends
 
-Route::get('/admin/login',[AdminController::class, 'login'])->name('adminLogin');
-Route::get('/admin/logout',[AdminController::class, 'logout'])->name('adminLogout');
-Route::get('/admin/register',[AdminController::class, 'register'])->name('adminRegister');
+Route::get('/login',[AdminController::class, 'login'])->name('adminLogin');
+Route::get('/logout',[AdminController::class, 'logout'])->name('adminLogout');
+Route::get('/register',[AdminController::class, 'register'])->name('adminRegister');
 Route::post('register',[AdminController::class, 'createUser'])->name('adminRegisterPost');
 Route::post('login',[AdminController::class, 'doLogin'])->name('doLogin');
 
 
 Route::group(['middleware' => ['auth']], function () {
     // demo for role based API
-    Route::get('admin/emp-role', [EmployeeController::class, 'index'])->name('emp-role')->middleware('can:add.blog');
-    Route::get('admin/user/{id}/edit',[UserController::class, 'edit'])->name('user.edit');
-    Route::put('admin/user/{id}',[UserController::class, 'update'])->name('user.update');
-    Route::get('/admin/dashboard',[DashboardController::class, 'home'])->name('dashboard');
-    Route::resource('admin/user', UserController::class);
+    Route::get('emp-role', [EmployeeController::class, 'index'])->name('emp-role')->middleware('can:add.blog');
+    Route::get('user/{id}/edit',[UserController::class, 'edit'])->name('user.edit');
+    Route::put('user/{id}',[UserController::class, 'update'])->name('user.update');
+    Route::get('/dashboard',[DashboardController::class, 'home'])->name('dashboard');
+    Route::resource('user', UserController::class);
 
 
       //Program Routings
     
-      Route::post('admin/news/updateSortorder',[NewsController::class, 'updateSortorder']);
-      Route::post('admin/news/destroyAll',[NewsController::class, 'destroyAll']);
-      Route::post('admin/news/updateStatus',[NewsController::class, 'updateStatus']);
-      Route::get('admin/news/sub-category/{parentCategoryId}',[NewsController::class, 'getSubcategory']);
-      Route::resource('admin/news', NewsController::class);
+      Route::post('news/updateSortorder',[NewsController::class, 'updateSortorder']);
+      Route::post('news/destroyAll',[NewsController::class, 'destroyAll']);
+      Route::post('news/updateStatus',[NewsController::class, 'updateStatus']);
+      Route::get('news/sub-category/{parentCategoryId}',[NewsController::class, 'getSubcategory']);
+      Route::resource('news', NewsController::class);
     
    
 
      //News Category Routings
          
-     Route::post('admin/news-category/updateSortorder', [NewsCategoryController:: class, 'updateSortorder']);
-     Route::post('admin/news-category/destroyAll', [NewsCategoryController:: class, 'destroyAll']);
-     Route::post('admin/news-category/updateStatus', [NewsCategoryController:: class, 'updateStatus']);
-     Route::resource('admin/news-category', NewsCategoryController::class);
+     Route::post('news-category/updateSortorder', [NewsCategoryController:: class, 'updateSortorder']);
+     Route::post('news-category/destroyAll', [NewsCategoryController:: class, 'destroyAll']);
+     Route::post('news-category/updateStatus', [NewsCategoryController:: class, 'updateStatus']);
+     Route::resource('news-category', NewsCategoryController::class);
 
  
      //news Category Routings ends
@@ -94,20 +94,20 @@ Route::group(['middleware' => ['auth']], function () {
 
      //Landing pages Routings
          
-     Route::post('admin/landing-page/updateSortorder', [LandingPagesController:: class, 'updateSortorder']);
-     Route::post('admin/landing-page/destroyAll', [LandingPagesController:: class, 'destroyAll']);
-     Route::post('admin/landing-page/updateStatus', [LandingPagesController:: class, 'updateStatus']);
-     Route::resource('admin/landing-page', LandingPagesController::class);
+     Route::post('landing-page/updateSortorder', [LandingPagesController:: class, 'updateSortorder']);
+     Route::post('landing-page/destroyAll', [LandingPagesController:: class, 'destroyAll']);
+     Route::post('landing-page/updateStatus', [LandingPagesController:: class, 'updateStatus']);
+     Route::resource('landing-page', LandingPagesController::class);
  
      //Landing pages Routings ends
 
 
 
        //contact Leads Routings
-       Route::post('admin/contact/leads/updateSortorder',[ ContactLeadsController::class, 'updateSortorder']);
-       Route::post('admin/contact/leads/destroyAll',[ ContactLeadsController::class, 'destroyAll']);
-       Route::post('admin/contact/leads/updateStatus',[ ContactLeadsController::class, 'updateStatus']);
-       Route::resource('admin/contact/leads', ContactLeadsController::class);
+       Route::post('contact/leads/updateSortorder',[ ContactLeadsController::class, 'updateSortorder']);
+       Route::post('contact/leads/destroyAll',[ ContactLeadsController::class, 'destroyAll']);
+       Route::post('contact/leads/updateStatus',[ ContactLeadsController::class, 'updateStatus']);
+       Route::resource('contact/leads', ContactLeadsController::class);
        Route::get('/search-export-contact-leads', [ContactLeadsController::class, 'searchExport'])->name('search-export');
 
         //contact Leads Routings ends
@@ -119,48 +119,48 @@ Route::group(['middleware' => ['auth']], function () {
 
 
                //General Settings Routings
-      Route::get('admin/general-settings/home-page-setting', [GeneralSettingsController::class, 'index'])->name('home');
-      Route::put('admin/generalSettings', [GeneralSettingsController::class, 'update'])->name('update');
+      Route::get('general-settings/home-page-setting', [GeneralSettingsController::class, 'index'])->name('home');
+      Route::put('generalSettings', [GeneralSettingsController::class, 'update'])->name('update');
 
-      Route::get('admin/general-settings/website-logo-setting', [GeneralSettingsController::class, 'websiteLogo'])->name('websiteLogo');
-      Route::put('admin/generalSettings/website-logo', [GeneralSettingsController::class, 'updateLogo'])->name('updateLogo');
+      Route::get('general-settings/website-logo-setting', [GeneralSettingsController::class, 'websiteLogo'])->name('websiteLogo');
+      Route::put('generalSettings/website-logo', [GeneralSettingsController::class, 'updateLogo'])->name('updateLogo');
       //General Settings Routings ends
 
              
          //Contact Routings
 
     
-         Route::post('admin/contact/updateSortorder',[ContactController:: class,  'updateSortorder']);
-         Route::post('admin/contact/destroyAll',[ContactController:: class,  'destroyAll']);
-         Route::post('admin/contact/updateStatus',[ContactController:: class,  'updateStatus']);
-         Route::resource('admin/contact',ContactController::class);
+         Route::post('contact/updateSortorder',[ContactController:: class,  'updateSortorder']);
+         Route::post('contact/destroyAll',[ContactController:: class,  'destroyAll']);
+         Route::post('contact/updateStatus',[ContactController:: class,  'updateStatus']);
+         Route::resource('contact',ContactController::class);
      
          //Contact Routings ends
 
          //Role Routings
-         Route::post('admin/role/updateSortorder',[RoleController::class,  'updateSortorder']);
-         Route::post('admin/role/destroyAll',[RoleController::class,  'destroyAll']);
-         Route::post('admin/role/updateStatus',[RoleController::class,'updateStatus']); 
-         Route::resource('admin/role',RoleController::class);
+         Route::post('role/updateSortorder',[RoleController::class,  'updateSortorder']);
+         Route::post('role/destroyAll',[RoleController::class,  'destroyAll']);
+         Route::post('role/updateStatus',[RoleController::class,'updateStatus']); 
+         Route::resource('role',RoleController::class);
          //Role Routings ends
 
           //PermissionHead Routings
-          Route::post('admin/permission/updateSortorder',[PermissionHeadController::class,  'updateSortorder']);
-          Route::post('admin/permission/destroyAll',[PermissionHeadController::class,  'destroyAll']);
-          Route::post('admin/permission/updateStatus',[PermissionHeadController::class,'updateStatus']); 
-          Route::resource('admin/permission',PermissionHeadController::class);
+          Route::post('permission/updateSortorder',[PermissionHeadController::class,  'updateSortorder']);
+          Route::post('permission/destroyAll',[PermissionHeadController::class,  'destroyAll']);
+          Route::post('permission/updateStatus',[PermissionHeadController::class,'updateStatus']); 
+          Route::resource('permission',PermissionHeadController::class);
           //PermissionHead Routings ends
   
 
 });
 
 
-// Route::get('/admin/dashboard', 'admin\DashboardController@home');
+// Route::get('/dashboard', 'admin\DashboardController@home');
 
 
-//Route::get('/admin/login', 'admin\AdminController@login')->name('adminLogin');
+//Route::get('/login', 'admin\AdminController@login')->name('adminLogin');
 // Route::post('login', 'admin\AdminController@doLogin')->name('customeLogin');
-//Route::get('/admin/register', 'admin\AdminController@register');
+//Route::get('/register', 'admin\AdminController@register');
 //Route::post('register', 'admin\AdminController@createUser');
 
 Route::get('/', function () {

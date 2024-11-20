@@ -37,10 +37,10 @@ class AdminController extends Controller
             if (Auth::attempt($credentials)) {
 
                 $user = Auth::user();
-              
+              //dd($user);
               //  if ($user->roleId === 1 || $user->roleId === 2) {
               if($user){
-                    return redirect()->intended('admin/dashboard');
+                    return redirect()->intended('dashboard');
                     
                 }else{
 
@@ -52,7 +52,7 @@ class AdminController extends Controller
                 // Authentication passed...
                 
             }
-            return Redirect::to("admin/login")->with('message', 'Oppes! You have entered invalid credentials');
+            return Redirect::to("login")->with('message', 'Oppes! You have entered invalid credentials');
     }
 
 
@@ -87,13 +87,13 @@ class AdminController extends Controller
         $user->save();
     
         
-        return redirect()->to('admin/login')->with('message', 'Congratulations! Registration Successfull');;
+        return redirect()->to('login')->with('message', 'Congratulations! Registration Successfull');;
     }
 
     public function logout(){
      
         Auth::logout(); 
-        return Redirect::to('admin/login')->with('message', 'Logged Out Successfully');; 
+        return Redirect::to('login')->with('message', 'Logged Out Successfully');; 
 
     }
 
