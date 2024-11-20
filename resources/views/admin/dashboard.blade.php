@@ -9,7 +9,7 @@
                             @if(Auth::user()->roleId == 1)
                                 <div class="col-lg-3 col-md-6 my-3">
                                     <div class="icon-list rounded">
-                                        <a href="{{ url('/admin/program') }}" title="Program"><img src="{{ asset('assets/admin/images/icon/state.svg') }}" alt="image"></a>
+                                        <a href="{{ url('/program') }}" title="Program"><img src="{{ asset('assets/admin/images/icon/state.svg') }}" alt="image"></a>
                                     </div>
                                 </div>
                             @endif
@@ -19,7 +19,7 @@
                             @if(Auth::user()->roleId == 1)
                                     <div class="col-lg-3 col-md-6 my-3">
                                     <div class="icon-list rounded">
-                                        <a href="{{ url('/admin/subject') }}" title="Subject"><img src="{{ asset('assets/admin/images/icon/books-stack.svg') }}" alt="image"></a>
+                                        <a href="{{ url('/subject') }}" title="Subject"><img src="{{ asset('assets/admin/images/icon/books-stack.svg') }}" alt="image"></a>
                                     </div>
                                 </div>
                             @endif
@@ -29,7 +29,7 @@
                             @if(Auth::user()->roleId == 1)
                                     <div class="col-lg-3 col-md-6 my-3">
                                     <div class="icon-list rounded">
-                                        <a href="{{ url('/admin/topic') }}" title="Topic"><img src="{{ asset('assets/admin/images/icon/category.svg') }}" alt="image"></a>
+                                        <a href="{{ url('/topic') }}" title="Topic"><img src="{{ asset('assets/admin/images/icon/category.svg') }}" alt="image"></a>
                                     </div>
                                 </div>
                             @endif
@@ -39,7 +39,7 @@
                             @if(Auth::user()->roleId == 1)
                                     <div class="col-lg-3 col-md-6 my-3">
                                     <div class="icon-list rounded">
-                                        <a href="{{ url('/admin/time-slot') }}" title="Time Slot"><img src="{{ asset('assets/admin/images/icon/clock.svg') }}" alt="image"></a>
+                                        <a href="{{ url('/time-slot') }}" title="Time Slot"><img src="{{ asset('assets/admin/images/icon/clock.svg') }}" alt="image"></a>
                                     </div>
                                 </div>
                             @endif
@@ -49,7 +49,7 @@
                             @if(Auth::user()->roleId == 1)
                                 <div class="col-lg-3 col-md-6 my-3">
                                     <div class="icon-list rounded">
-                                        <a href="{{ url('/admin/teacher-class') }}" title="Class Teacher"><img src="{{ asset('assets/admin/images/icon/program.svg') }}" alt="image"></a>
+                                        <a href="{{ url('/teacher-class') }}" title="Class Teacher"><img src="{{ asset('assets/admin/images/icon/program.svg') }}" alt="image"></a>
                                     </div>
                                 </div>
                             @endif
@@ -80,7 +80,7 @@
 
                                 <div class="col-lg-3 col-md-6 my-3">
                                     <div class="icon-list rounded">
-                                        <a href="{{ url('/admin/question') }}" title="Question"><img src="{{ asset('assets/admin/images/icon/plan.svg') }}" alt="image"></a>
+                                        <a href="{{ url('/question') }}" title="Question"><img src="{{ asset('assets/admin/images/icon/plan.svg') }}" alt="image"></a>
                                     </div>
                                 </div>
 
@@ -93,7 +93,7 @@
                                 @if(Auth::user()->roleId == 2)
                                 <div class="col-lg-3 col-md-6 my-3">
                                     <div class="icon-list rounded">
-                                        <a href="{{ url('/admin/teacher-meeting') }}" title="Session"><img src="{{ asset('assets/admin/images/icon/meeting.svg') }}" alt="image"></a>
+                                        <a href="{{ url('/teacher-meeting') }}" title="Session"><img src="{{ asset('assets/admin/images/icon/meeting.svg') }}" alt="image"></a>
                                     </div>
                                 </div>
                                 @endif
@@ -103,7 +103,7 @@
                                 @if(Auth::user()->roleId == 1)
                                 <div class="col-lg-3 col-md-6 my-3">
                                     <div class="icon-list rounded">
-                                        <a href="{{ url('/admin/meeting') }}" title="Session"><img src="{{ asset('assets/admin/images/icon/meeting.svg') }}" alt="image"></a>
+                                        <a href="{{ url('/meeting') }}" title="Session"><img src="{{ asset('assets/admin/images/icon/meeting.svg') }}" alt="image"></a>
                                     </div>
                                 </div>
                                 @endif
@@ -114,7 +114,7 @@
                             @if(Auth::user()->roleId == 1)
                                 <div class="col-lg-3 col-md-6 my-3">
                                     <div class="icon-list rounded">
-                                        <a href="{{ url('/admin/plan') }}" title="Plan management"><img src="{{ asset('assets/admin/images/icon/order.svg') }}" alt="image"></a>
+                                        <a href="{{ url('/plan') }}" title="Plan management"><img src="{{ asset('assets/admin/images/icon/order.svg') }}" alt="image"></a>
                                     </div>
                                 </div>
                             @endif
@@ -124,7 +124,7 @@
                             @if(Auth::user()->roleId == 1)
                                     <div class="col-lg-3 col-md-6 my-3">
                                     <div class="icon-list rounded">
-                                        <a href="{{ url('/admin/contact') }}" title="Contact"><img src="{{ asset('assets/admin/images/icon/management.svg') }}" alt="image"></a>
+                                        <a href="{{ url('/contact') }}" title="Contact"><img src="{{ asset('assets/admin/images/icon/management.svg') }}" alt="image"></a>
                                     </div>
                                 </div>
                             @endif
@@ -134,7 +134,7 @@
                             @if(Auth::user()->roleId == 1)
                                 <div class="col-lg-3 col-md-6 my-3">
                                     <div class="icon-list rounded">
-                                        <a href="{{ url('/admin/user') }}" title="User"><img src="{{ asset('assets/admin/images/icon/user.svg') }}" alt="image"></a>
+                                        <a href="{{ url('/user') }}" title="User"><img src="{{ asset('assets/admin/images/icon/user.svg') }}" alt="image"></a>
                                     </div>
                                 </div>
                             @endif
