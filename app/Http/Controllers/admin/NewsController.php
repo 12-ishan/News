@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Gate;
 //use App\Http\Requests\StorenewsRequest;
 
 
-class newsController extends Controller
+class NewsController extends Controller
 {
 
     public function __construct()
