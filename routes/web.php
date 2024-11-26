@@ -69,6 +69,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('user/{id}',[UserController::class, 'update'])->name('user.update');
     Route::get('/dashboard',[DashboardController::class, 'home'])->name('dashboard');
     Route::resource('user', UserController::class);
+    Route::post('user/updateSortorder', [UserController:: class, 'updateSortorder']);
+     Route::post('user/destroyAll', [UserController:: class, 'destroyAll']);
+     Route::post('user/updateStatus', [UserController:: class, 'updateStatus']);
 
 
       //Program Routings

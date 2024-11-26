@@ -23,6 +23,7 @@ class GeneralSettingsController extends Controller
 
     public function index()
     {
+         if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.UPDATE_HOME_PAGE_SETTING')) || auth()->user()->hasPermission(config('constants.UPDATE_WEBSITE_LOGO'))) {
         $generalSettings = GeneralSettings::where('id', 1)->first();
        
         $data = [
@@ -32,12 +33,18 @@ class GeneralSettingsController extends Controller
         $data["pageTitle"] = 'Home Page Settings';
         $data["activeMenu"] = 'generalSettings';
         return view('admin.generalSettings.home')->with($data);
+         }
+         else{
+              return view('admin.permissionDenied');
+         }
     }
       
 
 public function update(Request $request)
 {
-   
+   if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.UPDATE_HOME_PAGE_SETTING')) || auth()->user()->hasPermission(config('constants.UPDATE_WEBSITE_LOGO'))) {
+           
+        
     $GeneralSettings = GeneralSettings::where('id', 1)->first();
     
    if ($request->hasFile('image')) { 
@@ -54,9 +61,14 @@ public function update(Request $request)
     $request->session()->flash('message', 'Contact Updated Successfully');
     return redirect()->route('home');
 }
+else{
+    return view('admin.permissionDenied');
+}
+}
 
 public function websiteLogo()
 {
+    if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.UPDATE_HOME_PAGE_SETTING')) || auth()->user()->hasPermission(config('constants.UPDATE_WEBSITE_LOGO'))) {
     $websiteLogo = WebsiteLogo::where('id', 1)->first();
    
     $data = [
@@ -66,10 +78,16 @@ public function websiteLogo()
     $data["pageTitle"] = 'website logo Setting';
     $data["activeMenu"] = 'generalSettings';
     return view('admin.generalSettings.websiteLogo')->with($data);
+    }
+    else{
+         return view('admin.permissionDenied');
+    }
 }
   
 public function updateLogo(Request $request)
 {
+    if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.UPDATE_HOME_PAGE_SETTING')) || auth()->user()->hasPermission(config('constants.UPDATE_WEBSITE_LOGO'))) {
+          
    
     $websiteLogo = WebsiteLogo::where('id', 1)->first();
     
@@ -82,6 +100,10 @@ public function updateLogo(Request $request)
     $websiteLogo->save();
     $request->session()->flash('message', 'Contact Updated Successfully');
     return redirect()->route('websiteLogo');
+}
+else{
+    return view('admin.permissionDenied');
+}
 }
 
 }

@@ -29,6 +29,8 @@ class LandingPagesController extends Controller
      */
     public function index()
     {
+         if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.EDIT_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_SORTORDER'))) {
+           
         $data = array();
 
         $data["landingPage"] = LandingPage::orderBy('sort_order')->get();
@@ -36,6 +38,10 @@ class LandingPagesController extends Controller
         $data["pageTitle"] = 'Manage Landing Pages';
         $data["activeMenu"] = 'Landing Page';
         return view('admin.landingPages.manage')->with($data);
+        }
+        else{
+            return view('admin.permissionDenied');
+        }
     }
 
     /**
@@ -45,12 +51,18 @@ class LandingPagesController extends Controller
      */
     public function create()
     {
+         if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.EDIT_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_SORTORDER'))) {
         $data = array();
 
         $data["pageTitle"] = 'Add Landing Page';
         $data["activeMenu"] = 'Landing Page';
         return view('admin.landingPages.create')->with($data);
+         }
+         else{
+             return view('admin.permissionDenied');
+         }
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -60,6 +72,8 @@ class LandingPagesController extends Controller
      */
     public function store(Request $request)
     {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.EDIT_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_SORTORDER'))) {
+           
         $this->validate(request(), [
             'title' => 'required',
  
@@ -87,6 +101,10 @@ class LandingPagesController extends Controller
         $landingPage->save();
 
         return redirect()->route('landing-page.index')->with('message', 'Category Added Successfully');
+        }
+        else{
+            return view('admin.permissionDenied');
+        }
     }
 
     /**
@@ -108,6 +126,7 @@ class LandingPagesController extends Controller
      */
     public function edit($id)
     {
+         if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.EDIT_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_SORTORDER'))) {
         
         $data = array();
 
@@ -116,6 +135,10 @@ class LandingPagesController extends Controller
         $data["pageTitle"] = 'Update Landing Page';
         $data["activeMenu"] = 'Landing Page';
         return view('admin.landingPages.create')->with($data);
+         }
+         else{
+            return view('admin.permissionDenied');
+         }
     }
 
     /**
@@ -127,7 +150,8 @@ class LandingPagesController extends Controller
      */
     public function update(Request $request)
     {
-
+  if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.EDIT_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_SORTORDER'))) {
+           
         $this->validate(request(), [
             'title' => 'required',
            
@@ -152,6 +176,10 @@ class LandingPagesController extends Controller
         $landingPage->save();
 
         return redirect()->route('landing-page.index')->with('message', 'category Updated Successfully');
+  }
+  else{
+    return view('admin.permissionDenied');
+  }
     }
 
     /**
@@ -162,6 +190,9 @@ class LandingPagesController extends Controller
      */
     public function destroy(Request $request)
     {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.EDIT_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_SORTORDER'))) {
+           
+
         $id = $request->id;
         $landingPage = LandingPage::find($id);
         $landingPage->delete($id);
@@ -172,6 +203,14 @@ class LandingPagesController extends Controller
             'response' => $request->id
         ]);
     }
+    else{
+        return response()->json([
+            'status' => 0,
+            'message' => 'You are not allowed to delete news.'
+        ], 403);
+    
+    }
+    }
 
     /**
      * Remove all selected resource from storage.
@@ -181,6 +220,8 @@ class LandingPagesController extends Controller
      */
     public function destroyAll(Request $request)
     {
+    if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.EDIT_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_SORTORDER'))) {
+              
 
         $record = $request->input('deleterecords');
 
@@ -198,6 +239,14 @@ class LandingPagesController extends Controller
             'response' => ''
         ]);
     }
+    else{
+        return response()->json([
+            'status' => 0,
+            'message' => 'You are not allowed to delete news.'
+        ], 403);
+    
+    }
+    }
 
     /**
      * Update SortOrder.
@@ -207,6 +256,8 @@ class LandingPagesController extends Controller
      */
     public function updateSortorder(Request $request)
     {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.EDIT_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_SORTORDER'))) {
+
         $data = $request->records;
         $decoded_data = json_decode($data);
         $result = 0;
@@ -229,6 +280,14 @@ class LandingPagesController extends Controller
 
         return response()->json($response);
     }
+    else{
+        return response()->json([
+            'status' => 0,
+            'message' => 'You are not allowed to delete news.'
+        ], 403);
+    
+    }
+    }
 
     /**
      * Update Status resource from storage.
@@ -238,6 +297,9 @@ class LandingPagesController extends Controller
      */
     public function updateStatus(Request $request)
     {
+         if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.EDIT_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_LANDING_PAGE')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_LANDING_PAGE_SORTORDER'))) {
+           
+
         $status = $request->status;
         $id = $request->id;
 
@@ -252,6 +314,14 @@ class LandingPagesController extends Controller
         }
 
         return response()->json($response);
+    }
+    else{
+        return response()->json([
+            'status' => 0,
+            'message' => 'You are not allowed to delete news.'
+        ], 403);
+    
+    }
     }
 
 }
