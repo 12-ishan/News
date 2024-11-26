@@ -16,7 +16,7 @@ class AdminController extends Controller
     public function login(){
 
         if (Auth::user()) {   // Check is user logged in
-            return redirect()->intended('admin/dashboard');
+            return redirect()->intended('/dashboard');
             
         }
 
@@ -25,35 +25,34 @@ class AdminController extends Controller
 
     }
 
-    public function doLogin(Request $request){
-     
-        $this->validate(request(), [
-            'email' => 'required',
+    public function doLogin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
             'password' => 'required',
-            ]);
-     
-            $credentials = $request->only('email', 'password');
-
-            if (Auth::attempt($credentials)) {
-
-                $user = Auth::user();
-            if ($user->roleId === 1) {  //super admin roleId = 1
-              if($user){
+        ]);
+    
+        $credentials = $request->only('email', 'password');
+    
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+    
+            if ($user->status === 1) {
+                if ($user->roleId === 1) {
                     return redirect()->intended('dashboard');
-                    
-                }else{
-
-                    Auth::logout(); 
+                } else {
+                    Auth::logout();
                     return redirect()->route('adminLogin')->with('message', 'Invalid Access');
-                    
                 }
-
-                // Authentication passed...
-                
+            } else {
+                Auth::logout();
+                return redirect()->route('login')->with('message', 'Your account is inactive. Please contact support.');
             }
         }
-            return Redirect::to("login")->with('message', 'Oppes! You have entered invalid credentials');
+    
+        return redirect()->route('login')->with('message', 'Oops! You have entered invalid credentials.');
     }
+    
 
 
     public function register(){
