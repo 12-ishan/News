@@ -103,7 +103,7 @@
                                         <div class="col-12 mt-6">
                                             <div class="upload-image">
                                                 <img width="100" height="60"
-                                                    src=" {{ URL::to('/') }}/uploads/newsImage/{{ $news->image->name }}"
+                                                    src="{{ URL::to('/') }}/uploads/newsImage/{{ $news->image->name }}"
                                                     alt="image">
                                             </div>
                                         </div>
@@ -142,9 +142,21 @@
 
 @section('js')
     <script src="{{ asset('assets/admin/js/console/news.js') }}"></script>
+    {{-- <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            ClassicEditor.create(document.querySelector('#description')).catch(error => console.error(error));
+        });
+    </script> --}}
+
+    {{-- <script>
+        CKEDITOR_BASEPATH = "{{ asset('/ckeditor/') }}/";
+        CKEDITOR.replace('description');
+    </script> --}}
 @append
 
+
 <script type="text/javascript">
+//CKEDITOR.replace('description');
    
 
     $(document).ready(function() {

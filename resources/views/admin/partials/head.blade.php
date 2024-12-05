@@ -37,7 +37,14 @@
 
 <!-- modernizr css -->
 <script src="{{ asset('assets/admin/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+{{-- <script src="https://cdn.ckeditor.com/ckeditor5/35.0.0/classic/ckeditor.js"></script> --}}
+{{-- <script src="https://cdn.ckeditor.com/ckeditor5/35.0.0/standard/ckeditor.js"></script> --}}
+{{-- <script src="https://cdn.ckeditor.com/4.23.1/standard/ckeditor.js"></script> --}}
+{{-- <script src="https://cdn.ckeditor.com/4.25.1/standard/ckeditor.js"></script> --}}
+{{-- <script src="{{ asset('ckeditor/ckeditor.js') }}"></script> --}}
 <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
