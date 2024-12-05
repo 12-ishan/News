@@ -69,7 +69,10 @@ else{
 public function websiteLogo()
 {
     if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.UPDATE_HOME_PAGE_SETTING')) || auth()->user()->hasPermission(config('constants.UPDATE_WEBSITE_LOGO'))) {
-    $websiteLogo = WebsiteLogo::where('id', 1)->first();
+        $websiteLogo = WebsiteLogo::with(['favicon', 'image'])->where('id', 1)->first();
+        // echo '<pre>';
+        // print_r($websiteLogo->favicon->name);
+        // die();
    
     $data = [
         'websiteLogo' => $websiteLogo,
@@ -86,17 +89,28 @@ public function websiteLogo()
   
 public function updateLogo(Request $request)
 {
+  
     if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.UPDATE_HOME_PAGE_SETTING')) || auth()->user()->hasPermission(config('constants.UPDATE_WEBSITE_LOGO'))) {
           
    
     $websiteLogo = WebsiteLogo::where('id', 1)->first();
+
+    if ($request->hasFile('favicon')) { 
+        $mediaId = imageUpload($request->favicon, $websiteLogo->favicon ?? null, $this->userId, "uploads/favicon/");
+     
+        $websiteLogo->favicon = $mediaId;
+    }
+  
     
    if ($request->hasFile('image')) { 
         $mediaId = imageUpload($request->image, $websiteLogo->imageId ?? null, $this->userId, "uploads/home/");
-        
+      
         $websiteLogo->imageId = $mediaId;
     }
 
+  
+
+    $websiteLogo->page_title = $request->input('title');
     $websiteLogo->save();
     $request->session()->flash('message', 'Contact Updated Successfully');
     return redirect()->route('websiteLogo');

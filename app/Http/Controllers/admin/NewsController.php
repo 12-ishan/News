@@ -24,17 +24,17 @@ class NewsController extends Controller
         $this->middleware('auth');
         $this->middleware(function ($request, $next) {
             $this->userId = Auth::user()->id;
-            $this->accountId = Auth::user()->accountId;
-            $currentRoute = $request->route()->getName(); 
-        $currentUrl = $request->fullUrl(); 
+           // $this->accountId = Auth::user()->accountId;
+        //     $currentRoute = $request->route()->getName(); 
+        // $currentUrl = $request->fullUrl(); 
 
-        activity('news')->event(config('event.EVENT_UPDATED'))
-            ->causedBy(auth()->user())
-            ->withProperties([
-                'route' => $currentRoute,
-                'url' => $currentUrl,
-            ])
-            ->log("Accessed the '{$currentRoute}' page");
+        // activity('news')->event(config('event.EVENT_UPDATED'))
+        //     ->causedBy(auth()->user())
+        //     ->withProperties([
+        //         'route' => $currentRoute,
+        //         'url' => $currentUrl,
+        //     ])
+        //     ->log("Accessed the '{$currentRoute}' page");
 
         return $next($request);
         });
@@ -43,7 +43,7 @@ class NewsController extends Controller
   
     public function index()
     {
-        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_NEWS')) || auth()->user()->hasPermission(config('constants.EDIT_NEWS') || auth()->user()->hasPermission(config('constants.DELETE_NEWS'))) || auth()->user()->hasPermission(config('constants.DELETE_ALL_NEWS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_SORTORDER'))) {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.NEWS_MANAGER')) ) {
 
             $data = array();
         $data["news"] = News::orderBy('sortOrder')->get();
@@ -61,7 +61,7 @@ class NewsController extends Controller
     
     public function create()
     {
-       if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_NEWS')) || auth()->user()->hasPermission(config('constants.EDIT_NEWS') || auth()->user()->hasPermission(config('constants.DELETE_NEWS'))) || auth()->user()->hasPermission(config('constants.DELETE_ALL_NEWS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_SORTORDER'))) {
+       if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_NEWS')) ) {
 
             $data = array();
 
@@ -87,7 +87,7 @@ class NewsController extends Controller
 
     public function store(Request $request)
     { 
-        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_NEWS')) || auth()->user()->hasPermission(config('constants.EDIT_NEWS') || auth()->user()->hasPermission(config('constants.DELETE_NEWS'))) || auth()->user()->hasPermission(config('constants.DELETE_ALL_NEWS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_SORTORDER'))) {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_NEWS')) ) {
            // abort(403, 'You do not have permission to add news.');
         
            $this->validate(request(), [
@@ -100,7 +100,7 @@ class NewsController extends Controller
         
         if ($request->hasFile('image')) { 
 
-            $mediaId = imageUpload($request->image, $news->imageId, $this->userId, "uploads/newsImage/"); 
+            $mediaId = imageUpload($request->image, $news->imageId, $this->userId, "/uploads/newsImage/"); 
             $news->imageId = $mediaId;
          }
     
@@ -127,7 +127,7 @@ class NewsController extends Controller
     
     public function edit($id)
     { 
-        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_NEWS')) || auth()->user()->hasPermission(config('constants.EDIT_NEWS') || auth()->user()->hasPermission(config('constants.DELETE_NEWS'))) || auth()->user()->hasPermission(config('constants.DELETE_ALL_NEWS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_SORTORDER'))) {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1)  || auth()->user()->hasPermission(config('constants.EDIT_NEWS') )) {
         $data = array();
        
         $data["news"] = News::find($id);
@@ -148,7 +148,7 @@ class NewsController extends Controller
 
     public function update(Request $request, $id)
     {
-        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_NEWS')) || auth()->user()->hasPermission(config('constants.EDIT_NEWS') || auth()->user()->hasPermission(config('constants.DELETE_NEWS'))) || auth()->user()->hasPermission(config('constants.DELETE_ALL_NEWS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_SORTORDER'))) {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.EDIT_NEWS') )) {
 
         $news = News::find($id);
     
@@ -176,7 +176,7 @@ class NewsController extends Controller
 
     public function destroy(Request $request)
     {
-        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_NEWS')) || auth()->user()->hasPermission(config('constants.EDIT_NEWS') || auth()->user()->hasPermission(config('constants.DELETE_NEWS'))) || auth()->user()->hasPermission(config('constants.DELETE_ALL_NEWS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_SORTORDER'))) {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.DELETE_NEWS')))  {
 
             $id = $request->id;
         $news = News::find($id);
@@ -202,7 +202,7 @@ class NewsController extends Controller
 
     public function destroyAll(Request $request)
     {
-        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_NEWS')) || auth()->user()->hasPermission(config('constants.EDIT_NEWS') || auth()->user()->hasPermission(config('constants.DELETE_NEWS'))) || auth()->user()->hasPermission(config('constants.DELETE_ALL_NEWS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_SORTORDER'))) {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.DELETE_ALL_NEWS'))) {
            
 
         $record = $request->input('deleterecords');
@@ -242,7 +242,7 @@ class NewsController extends Controller
     
     public function updateSortorder(Request $request)
     {
-        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_NEWS')) || auth()->user()->hasPermission(config('constants.EDIT_NEWS') || auth()->user()->hasPermission(config('constants.DELETE_NEWS'))) || auth()->user()->hasPermission(config('constants.DELETE_ALL_NEWS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_SORTORDER'))) {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_SORTORDER'))) {
            
         $data = $request->records;
        
@@ -279,7 +279,7 @@ class NewsController extends Controller
 
     public function updateStatus(Request $request)
     {
-        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || !auth()->user()->hasPermission(config('constants.CREATE_NEWS')) || !auth()->user()->hasPermission(config('constants.EDIT_NEWS') || !auth()->user()->hasPermission(config('constants.DELETE_NEWS'))) || !auth()->user()->hasPermission(config('constants.DELETE_ALL_NEWS')) || !auth()->user()->hasPermission(config('constants.UPDATE_NEWS_STATUS')) || !auth()->user()->hasPermission(config('constants.UPDATE_NEWS_SORTORDER'))) {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.UPDATE_NEWS_STATUS'))) {
            
         
         

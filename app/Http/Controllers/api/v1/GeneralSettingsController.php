@@ -55,6 +55,8 @@ class GeneralSettingsController extends Controller
             $response = [
                 'data' => [
                   'image' =>  url('/') . "/uploads/home/" . getMediaName($websiteLogo->imageId),
+                  'page_title' =>  $websiteLogo->page_title,
+                  'favicon' =>url('/') . "/uploads/favicon/" . getMediaName($websiteLogo->favicon),
                 ],
                 'status' => '1'
             ];

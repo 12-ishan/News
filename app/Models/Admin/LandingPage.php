@@ -8,6 +8,8 @@ use Spatie\Activitylog\LogOptions;
 
 class LandingPage extends Model
 {
+    use LogsActivity;
+
     protected $table = 'landing_pages';
 
     protected $fillable = ['title', 'imageId', 'slug', 'description', 'status', 'sortOrder'];

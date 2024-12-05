@@ -174,6 +174,11 @@
 </div>
 @section('js')
 <script src="{{ asset('assets/admin/js/console/user.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        ClassicEditor.create(document.querySelector('#description')).catch(error => console.error(error));
+    });
+</script>
 @append
 
 <script type="text/javascript">

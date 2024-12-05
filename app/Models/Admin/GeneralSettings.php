@@ -8,6 +8,8 @@ use Spatie\Activitylog\LogOptions;
 
 class GeneralSettings extends Model
 {
+    use LogsActivity;
+    
     protected $table = 'general_settings';
 
     protected $fillable = ['meta_title', 'imageId', 'meta_description', 'button_url', 'description', 'status', 'sortOrder'];

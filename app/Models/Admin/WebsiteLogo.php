@@ -9,10 +9,20 @@ use Spatie\Activitylog\LogOptions;
 
 class WebsiteLogo extends Model
 {
-    protected $table = 'website_logo';
+    use LogsActivity;
+    
+    protected $table = 'global_settings';
 
-    protected $fillable = [ 'imageId'];
+    protected $fillable = [ 'imageId', 'favicon', 'page_title'];
 
+    public function favicon()
+    {
+        return $this->belongsTo('App\Models\Admin\Media', 'favicon', 'id');
+        // echo '<pre>';
+        // print_r($i);
+        // die();
+    }
+    
     public function image()
     {
         return $this->belongsTo('App\Models\Admin\Media', 'imageId', 'id');

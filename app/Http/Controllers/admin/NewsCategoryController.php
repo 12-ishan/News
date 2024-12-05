@@ -29,7 +29,7 @@ class NewsCategoryController extends Controller
      */
     public function index()
     {
-         if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_CATEGORY')) || auth()->user()->hasPermission(config('constants.EDIT_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_CATEGORY')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_SORTORDER'))) {
+         if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CATEGORY_MANAGER')) ) {
            
          
         $data = array();
@@ -53,7 +53,7 @@ class NewsCategoryController extends Controller
      */
     public function create()
     {
-         if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_CATEGORY')) || auth()->user()->hasPermission(config('constants.EDIT_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_CATEGORY')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_SORTORDER')) ) {
+         if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_CATEGORY'))  ) {
         $data = array();
 
         $data["newsParentCategory"] = NewsCategory::where('status',1)->orderBy('sortOrder')->get();
@@ -75,7 +75,7 @@ class NewsCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_CATEGORY')) || auth()->user()->hasPermission(config('constants.EDIT_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_CATEGORY')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_SORTORDER'))) {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_CATEGORY')) ) {
            
         
         $this->validate(request(), [
@@ -123,7 +123,7 @@ class NewsCategoryController extends Controller
      */
     public function edit($id)
     {
-        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_CATEGORY')) || auth()->user()->hasPermission(config('constants.EDIT_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_CATEGORY')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_SORTORDER'))) {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1)  || auth()->user()->hasPermission(config('constants.EDIT_CATEGORY')) ) {
            
         
         $data = array();
@@ -150,7 +150,7 @@ class NewsCategoryController extends Controller
     public function update(Request $request)
     {
         
-       if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_CATEGORY')) || auth()->user()->hasPermission(config('constants.EDIT_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_CATEGORY')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_SORTORDER'))) {
+       if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1)  || auth()->user()->hasPermission(config('constants.EDIT_CATEGORY'))) {
           
 
         $this->validate(request(), [
@@ -185,7 +185,7 @@ class NewsCategoryController extends Controller
     public function destroy(Request $request)
     {
         
-        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_CATEGORY')) || auth()->user()->hasPermission(config('constants.EDIT_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_CATEGORY')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_SORTORDER'))) {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.DELETE_CATEGORY')) ) {
            
         $id = $request->id;
         $newsCategory = NewsCategory::find($id);
@@ -214,7 +214,7 @@ class NewsCategoryController extends Controller
     public function destroyAll(Request $request)
     {
         
-        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_CATEGORY')) || auth()->user()->hasPermission(config('constants.EDIT_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_CATEGORY')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_SORTORDER'))) {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.DELETE_ALL_CATEGORY')) ) {
 
         $record = $request->input('deleterecords');
 
@@ -249,7 +249,7 @@ class NewsCategoryController extends Controller
     public function updateSortorder(Request $request)
     {
         
-         if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_CATEGORY')) || auth()->user()->hasPermission(config('constants.EDIT_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_CATEGORY')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_SORTORDER'))) {
+         if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_SORTORDER'))) {
            
         $data = $request->records;
         $decoded_data = json_decode($data);
@@ -290,7 +290,7 @@ class NewsCategoryController extends Controller
     public function updateStatus(Request $request)
     {
         
-        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.CREATE_CATEGORY')) || auth()->user()->hasPermission(config('constants.EDIT_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_CATEGORY')) || auth()->user()->hasPermission(config('constants.DELETE_ALL_CATEGORY')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_STATUS')) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_SORTORDER'))) {
+        if ((isset(Auth::user()->roleId) && Auth::user()->roleId == 1) || auth()->user()->hasPermission(config('constants.UPDATE_CATEGORY_STATUS'))) {
           
         $status = $request->status;
         $id = $request->id;

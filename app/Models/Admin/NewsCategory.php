@@ -8,6 +8,8 @@ use Spatie\Activitylog\LogOptions;
 
 class NewsCategory extends Model
 {
+    use LogsActivity;
+
     protected $table = 'news_category';
 
     protected $fillable = ['name', 'parent_id', 'slug', 'description', 'status', 'sortOrder'];

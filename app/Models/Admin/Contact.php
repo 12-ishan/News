@@ -8,6 +8,8 @@ use Spatie\Activitylog\LogOptions;
 
 class Contact extends Model
 {
+    use LogsActivity;
+    
     protected $table = 'contact';
 
     protected $fillable = ['name', 'email', 'phone', 'subject', 'message', 'status', 'sortOrder'];

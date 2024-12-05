@@ -25,11 +25,13 @@ if (! function_exists('imageUpload')) {
 
     function imageUpload($image, $referencedImageId, $userId, $path) {
        
-   
         $imageName =  time() . "_" . $image->getClientOriginalName();
        
 
             $image->move(public_path($path), $imageName);  // Upload imgae to specified folder
+        //  echo '<pre>';
+        //  print_r($i);
+        //  die();
 
             $mediaRecord = Media::orderBy('sortOrder')->where('userId', $userId)->where('id', $referencedImageId)->first();
            
@@ -68,6 +70,7 @@ if (! function_exists('imageUpload')) {
 
     }
 }
+
 
 
 if (! function_exists('imageUploadApi')) {

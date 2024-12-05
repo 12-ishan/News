@@ -113,7 +113,7 @@
                             </span></a>
                         <ul class="collapse">    
                             <li><a href="{{ url('/general-settings/home-page-setting') }}">Home Page Setting</a></li>
-                            <li><a href="{{ url('/general-settings/website-logo-setting') }}">Website logo Setting</a></li>
+                            <li><a href="{{ url('/general-settings/website-logo-setting') }}">Global Setting</a></li>
     
     
                         </ul>
